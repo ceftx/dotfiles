@@ -6,7 +6,6 @@ echo "Instalando dotfiles..."
 mkdir -p ~/.config
 
 # Enlizar configuración de .config
-ln -sf ~/dotfiles/config/nvim ~/.config/nvim
 ln -sf ~/dotfiles/config/fish ~/.config/fish
 ln -sf ~/dotfiles/config/alacritty ~/.config/alacritty
 ln -sf ~/dotfiles/config/starship.toml ~/.config/starship.toml
