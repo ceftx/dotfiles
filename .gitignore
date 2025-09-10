@@ -1,0 +1,10 @@
+# Ignorar archivos temporales
+*.swp
+*.swo
+*~
+
+# Ignorar archivos sensibles
+secrets/
+.env
+*.key
+*.pem
