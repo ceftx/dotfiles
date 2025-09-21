@@ -52,6 +52,8 @@ end
 
 alias ts="tmux"
 alias ls="eza -h -l -a --icons"
+alias pnpx="pnpm dlx"
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     set -U fish_greeting
