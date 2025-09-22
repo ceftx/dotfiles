@@ -27,27 +27,65 @@ set -gx PATH $ANDROID_HOME/tools/bin $PATH
 set -gx PATH "/home/ceftx/.config/herd-lite/bin" $PATH
 set -gx PHP_INI_SCAN_DIR "/home/ceftx/.config/herd-lite/bin" $PHP_INI_SCAN_DIR
 
-function use-java24
-    set -gx PATH (string match -v "*jvm*" $PATH)
-    set -gx JAVA_HOME /usr/lib/jvm/java-24-openjdk
-    set -gx PATH $JAVA_HOME/bin $PATH
-    echo "Java 24 activado (JAVA_HOME: $JAVA_HOME)"
-end
-
-function use-java21
-    # Elimina otras versiones del PATH
-    set -gx PATH (string match -v "*jvm*" $PATH)
-    set -gx JAVA_HOME /usr/lib/jvm/java-21-openjdk
-    set -gx PATH $JAVA_HOME/bin $PATH
-    echo "Java 21 activado (JAVA_HOME: $JAVA_HOME)"
-end
-
 function use-java17
+    set -l silent false
+    
+    # Verificar modo silencioso
+    if contains -- --silent $argv
+        set silent true
+    end
+    if contains -- -s $argv
+        set silent true
+    end
+    
     # Elimina otras versiones del PATH
     set -gx PATH (string match -v "*jvm*" $PATH)
     set -gx JAVA_HOME /usr/lib/jvm/java-17-openjdk
     set -gx PATH $JAVA_HOME/bin $PATH
-    echo "Java 17 activado (JAVA_HOME: $JAVA_HOME)"
+    
+    if not $silent
+        echo "Java 17 activado (JAVA_HOME: $JAVA_HOME)"
+    end
+end
+
+function use-java21
+    set -l silent false
+    
+    # Verificar modo silencioso
+    if contains -- --silent $argv
+        set silent true
+    end
+    if contains -- -s $argv
+        set silent true
+    end
+    
+    set -gx PATH (string match -v "*jvm*" $PATH)
+    set -gx JAVA_HOME /usr/lib/jvm/java-21-openjdk
+    set -gx PATH $JAVA_HOME/bin $PATH
+    
+    if not $silent
+        echo "Java 21 activado (JAVA_HOME: $JAVA_HOME)"
+    end
+end
+
+function use-java24
+    set -l silent false
+    
+    # Verificar modo silencioso
+    if contains -- --silent $argv
+        set silent true
+    end
+    if contains -- -s $argv
+        set silent true
+    end
+    
+    set -gx PATH (string match -v "*jvm*" $PATH)
+    set -gx JAVA_HOME /usr/lib/jvm/java-24-openjdk
+    set -gx PATH $JAVA_HOME/bin $PATH
+    
+    if not $silent
+        echo "Java 24 activado (JAVA_HOME: $JAVA_HOME)"
+    end
 end
 
 alias ts="tmux"
@@ -59,6 +97,7 @@ if status is-interactive
     # ~/.config/fish/config.fish
     starship init fish | source
     nvm use lts --silent
+    use-java21 --silent
     source "$HOME/.cargo/env.fish" # For fish 
 end
 
