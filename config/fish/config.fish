@@ -27,11 +27,11 @@ set -gx PATH $ANDROID_HOME/tools/bin $PATH
 set -gx PATH "/home/ceftx/.config/herd-lite/bin" $PATH
 set -gx PHP_INI_SCAN_DIR "/home/ceftx/.config/herd-lite/bin" $PHP_INI_SCAN_DIR
 
-function use-java24
+function use-java25
     set -gx PATH (string match -v "*jvm*" $PATH)
-    set -gx JAVA_HOME /usr/lib/jvm/java-24-openjdk
+    set -gx JAVA_HOME /usr/lib/jvm/java-25-openjdk
     set -gx PATH $JAVA_HOME/bin $PATH
-    echo "Java 24 activado (JAVA_HOME: $JAVA_HOME)"
+    echo "Java 25 activado (JAVA_HOME: $JAVA_HOME)"
 end
 
 function use-java21
