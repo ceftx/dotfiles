@@ -1,6 +1,6 @@
 add_newline = false
 command_timeout = 1000
-format = """$os$username$hostname$python$kubernetes$directory$git_branch$git_status """
+format = """$os$username$hostname$python$kubernetes$directory$git_branch"""
 
 # Drop ugly default prompt characters
 [character]
