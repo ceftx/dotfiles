@@ -1,3 +1,7 @@
+# Temporaly
+# fix crash open tauri app 
+set -gx WEBKIT_DISABLE_DMABUF_RENDERER 1
+
 # Configuración básica de Fish
 set -gx HOME /home/$USER
 set -gx XDG_CONFIG_HOME $HOME/.config
@@ -108,3 +112,7 @@ set -gx PNPM_HOME "/home/ceftx/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
