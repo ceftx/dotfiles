@@ -72,7 +72,7 @@ function use-java21
     end
 end
 
-function use-java24
+function use-java25
     set -l silent false
 
     # Verificar modo silencioso
@@ -101,7 +101,7 @@ if status is-interactive
 
     # ~/.config/fish/config.fish
     starship init fish | source
-    nvm use lts --silent
+    nvm use latest --silent
     use-java21 --silent
     source "$HOME/.cargo/env.fish" # For fish 
 end
