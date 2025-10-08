@@ -34,7 +34,7 @@ if [ "$INSTALL_FOR_ROOT" = "true" ]; then
 		ln -sf /home/$USER_NAME/dotfiles/config/fish /root/.config/fish
     ln -sf /home/$USER_NAME/dotfiles/config/nvim /root/.config/nvim
     ln -sf /home/$USER_NAME/dotfiles/config/tmux /root/.config/tmux
-		if [ -d "/home/$USER_NAME/.cargo/1" ]; then
+		if [ -d "/home/$USER_NAME/.cargo/" ]; then
 			ln -sf /home/$USER_NAME/.cargo /root/.cargo
 		else
 			echo "La configuración de nvim necesita que descargues rust y que exista la carpeta ~/.cargo,"
