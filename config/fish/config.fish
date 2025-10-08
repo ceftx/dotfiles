@@ -2,8 +2,18 @@
 # fix crash open tauri app 
 set -gx WEBKIT_DISABLE_DMABUF_RENDERER 1
 
+# Configuración básica de Fish - ADAPTATIVA
+if test (id -u) -eq 0
+    # Si somos root
+    set -gx HOME /root
+    set -gx USER root
+else
+    # Si somos usuario normal
+    set -gx HOME /home/$USER
+    set -gx USER $USER
+end
+
 # Configuración básica de Fish
-set -gx HOME /home/$USER
 set -gx XDG_CONFIG_HOME $HOME/.config
 set -gx XDG_DATA_HOME $HOME/.local/share
 
@@ -96,15 +106,29 @@ alias nv="nvim"
 alias ls="eza -h -l -a --icons"
 alias pnpx="pnpm dlx"
 
+function load_cargo_if_available
+    if test (id -u) -ne 0; and test -f "$HOME/.cargo/env.fish"
+        source "$HOME/.cargo/env.fish"
+    end
+end
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     set -U fish_greeting
 
     # ~/.config/fish/config.fish
     starship init fish | source
-    nvm use latest --silent
-    use-java21 --silent
-    source "$HOME/.cargo/env.fish" # For fish 
+
+    if test (id -u) -ne 0
+        # nvm solo si está instalado
+        if command -q nvm
+            nvm use latest --silent
+        end
+        
+        use-java21 --silent
+        load_cargo_if_available
+    end
+
 end
 
 # pnpm
