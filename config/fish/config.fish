@@ -92,6 +92,7 @@ function use-java25
 end
 
 alias ts="tmux"
+alias nv="nvim"
 alias ls="eza -h -l -a --icons"
 alias pnpx="pnpm dlx"
 
