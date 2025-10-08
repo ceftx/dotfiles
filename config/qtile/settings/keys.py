@@ -67,7 +67,18 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Screenshot
     ([mod], "s", lazy.spawn("scrot 'screenshot_%Y-%m-%d-%T_$wx$h.png' -e 'mkdir -p ~/images/screenshots/ | mv $f ~/images/screenshots/'")),
     ([mod, "shift"], "s", lazy.spawn("scrot -s")),
+# Add shortcuts to Flameshot package
+# Capture a region using the GUI, and have it automatically saved to your pictures folder when clicking the save button in GUI
+# flameshot gui --path /home/user/Pictures
 
+# Capture the active monitor and save it automatically to your pictures folder
+# flameshot screen --path /home/user/Pictures
+
+# Capture the full desktop (all monitors) and save it automatically to your pictures folder
+# flameshot full --path /home/user/Pictures
+
+# Capture the region, copy to clipboard and at the same time write to file and pin the image
+# flameshot gui --clipboard --pin --path ~/Pictures
     # ------------ Hardware Configs ------------
 
     # Volume
