@@ -6,6 +6,9 @@
 # bar
 polybar &
 
+# captura de pantalla
+flameshot &
+
 # keyboard layout
 setxkbmap -layout us -variant intl &
 
