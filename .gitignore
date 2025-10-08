@@ -8,3 +8,5 @@ secrets/
 .env
 *.key
 *.pem
+
+/config/tmux/plugins
