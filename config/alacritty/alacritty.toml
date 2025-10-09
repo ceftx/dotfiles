@@ -37,8 +37,8 @@ family = "mononoki Nerd Font"
 style = "Regular"
 
 [window.padding]
-x = 6
-y = 6
+x = 2
+y = 0
 
 [window]
-opacity= 0.88
+opacity= 1
