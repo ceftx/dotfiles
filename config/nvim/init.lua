@@ -14,16 +14,23 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.termguicolors = true
 vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim", version = "0.1.8" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = 'master'}
-	-- { src = "https://github.com/nvim-telescope/telescope.nvim",          version = "0.1.8" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = 'master'},
+	-- Dependecies and neotree
+	{ src = "https://github.com/MunifTanjim/nui.nvim" },
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
+	{ src = "https://github.com/nvim-neo-tree/neo-tree.nvim" },
+	-- Bufferline
+	{ src = "https://github.com/akinsho/bufferline.nvim" },
+	-- Snacks
+	{ src = "https://github.com/folke/snacks.nvim" }
 	-- { src = "https://github.com/vague2k/vague.nvim" },
 	-- { src = "https://github.com/LinArcX/telescope-env.nvim" },
 	-- { src = "https://github.com/chentoast/marks.nvim" },
 	-- { src = "https://github.com/stevearc/oil.nvim" },
-	-- { src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	-- { src = "https://github.com/aznhe21/actions-preview.nvim" },
 	-- { src = "https://github.com/nvim-treesitter/nvim-treesitter",        version = "main" },
 	-- { src = "https://github.com/chomosuke/typst-preview.nvim" },
@@ -203,6 +210,11 @@ vim.keymap.set("n", "<leader>h", pack_clean)
 -- map({ "i", "s" }, "<C-e>", function() ls.expand_or_jump(1) end, { silent = true })
 -- map({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
 -- map({ "i", "s" }, "<C-K>", function() ls.jump(-1) end, { silent = true })
+
+-- Required
+require('neo-tree').setup({})
+require("bufferline").setup{}
+
 local map = vim.keymap.set
 local current = 1
 local builtin = require('telescope.builtin')
@@ -232,6 +244,14 @@ map({ "n", "v", "x" }, "<leader>n", ":norm ", { desc = "ENTER NORM COMMAND." })
 map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitue mode in selection" })
 map({ "n", "v", "x" }, "<leader>lf", vim.lsp.buf.format, { desc = "Format current buffer" })
 map({ "v", "x", "n" }, "<C-y>", '"+y', { desc = "System clipboard yank." })
+-- Move prev or next buffer
+map({ "v", "n" }, "<S-h>", "<Cmd>:bprev<CR>", { desc = "Previous buffer." })
+map({ "v", "n" }, "<S-l>", "<Cmd>:bnext<CR>", { desc = "Next buffer." })
+-- Move trough windows
+map({"n"}, "<C-h>", "<C-w>h", {desc = 'Go to Left Window' }) 
+map({"n"}, "<C-l>", "<C-w>l", {desc = 'Go to Right Window' }) 
+map({"n"}, "<C-j>", "<C-w>j", {desc = 'Go to Lower Window' }) 
+map({"n"}, "<C-k>", "<C-w>k", {desc = 'Go to Upper Window' }) 
 -- Plugin shortcuts
 map({ "n" }, "<leader>ff", builtin.find_files, { desc = "Telescope live grep" })
 map({ "n" }, "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
@@ -239,6 +259,8 @@ map({ "n" }, "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 -- map({ "n" }, "<leader>sr", builtin.oldfiles, { desc = "Telescope buffers" })
 map({ "n" }, "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 map({ "n" }, "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+---- Neotree
+map({ "n" }, "<leader>e", "<Cmd>Neotree toggle<CR>" , { desc = "open/close neo-tree" })
 -- map({ "n" }, "<leader>sm", builtin.man_pages, { desc = "Telescope man pages" })
 -- map({ "n" }, "<leader>sr", builtin.lsp_references, { desc = "Telescope tags" })
 -- map({ "n" }, "<leader>st", builtin.builtin, { desc = "Telescope tags" })

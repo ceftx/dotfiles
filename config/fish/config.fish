@@ -121,9 +121,7 @@ if status is-interactive
 
     if test (id -u) -ne 0
         # nvm solo si está instalado
-        if command -q nvm
-            nvm use latest --silent
-        end
+        nvm use latest --silent
         
         use-java21 --silent
         load_cargo_if_available

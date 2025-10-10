@@ -38,7 +38,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "comma", lazy.prev_screen()),
 
     # Restart Qtile
-    ([mod, "control"], "r", lazy.restart(),lazy.spawn("~/.config/polybar/launch.sh")),
+    ([mod, "control"], "r", lazy.restart(), lazy.spawn("~/.config/polybar/launch.sh")),
 
     ([mod, "control"], "q", lazy.shutdown()),
     # ([mod], "r", lazy.spawncmd()),

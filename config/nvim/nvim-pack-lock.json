@@ -1,12 +1,32 @@
 {
   "plugins": {
+    "bufferline.nvim": {
+      "rev": "655133c",
+      "src": "https://github.com/akinsho/bufferline.nvim"
+    },
+    "neo-tree.nvim": {
+      "rev": "0c29e37",
+      "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
+    },
+    "nui.nvim": {
+      "rev": "de74099",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
+    },
     "nvim-treesitter": {
       "rev": "42fc28ba",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
+    "nvim-web-devicons": {
+      "rev": "b8221e4",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
     "plenary.nvim": {
       "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "dae80fb",
+      "src": "https://github.com/folke/snacks.nvim"
     },
     "telescope.nvim": {
       "rev": "a0bbec2",

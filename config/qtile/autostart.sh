@@ -12,5 +12,8 @@ flameshot &
 # keyboard layout
 setxkbmap -layout us -variant intl &
 
+# picom 
+picom &
+
 # wallpaper with feh
 ~/.fehbg &
