@@ -1,5 +1,5 @@
 vim.cmd([[set mouse=a]])
-vim.cmd([[set noswapfile]])  
+vim.cmd([[set noswapfile]])
 
 vim.opt.winborder = "rounded"
 vim.opt.tabstop = 2
@@ -15,6 +15,7 @@ vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
+
 vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim", version = "0.1.8" },
@@ -26,7 +27,17 @@ vim.pack.add({
 	-- Bufferline
 	{ src = "https://github.com/akinsho/bufferline.nvim" },
 	-- Snacks
-	{ src = "https://github.com/folke/snacks.nvim" }
+	{ src = "https://github.com/folke/snacks.nvim" },
+	-- mason and lspconfig
+	{ src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0"  },
+  { src = "https://github.com/rafamadriz/friendly-snippets" },
+	-- nvim-cmp
+	-- { src = "https://github.com/hrsh7th/nvim-cmp" },
+	--  { src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+	--
 	-- { src = "https://github.com/vague2k/vague.nvim" },
 	-- { src = "https://github.com/LinArcX/telescope-env.nvim" },
 	-- { src = "https://github.com/chentoast/marks.nvim" },
@@ -34,12 +45,11 @@ vim.pack.add({
 	-- { src = "https://github.com/aznhe21/actions-preview.nvim" },
 	-- { src = "https://github.com/nvim-treesitter/nvim-treesitter",        version = "main" },
 	-- { src = "https://github.com/chomosuke/typst-preview.nvim" },
-	-- { src = "https://github.com/neovim/nvim-lspconfig" },
 	-- { src = "https://github.com/mason-org/mason.nvim" },
 	-- { src = "https://github.com/L3MON4D3/LuaSnip" },
 	-- { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 })
---
+
 -- require "marks".setup {
 -- 	builtin_marks = { "<", ">", "^" },
 -- 	refresh_interval = 250,
@@ -68,21 +78,24 @@ vim.pack.add({
 -- 		}
 -- 	}
 -- })
---
+
+--native completions
+
 -- vim.api.nvim_create_autocmd('LspAttach', {
 -- 	group = vim.api.nvim_create_augroup('my.lsp', {}),
 -- 	callback = function(args)
 -- 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+--
 -- 		if client:supports_method('textDocument/completion') then
--- 			-- Optional: trigger autocompletion on EVERY keypress. May be slow!
 -- 			local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
 -- 			client.server_capabilities.completionProvider.triggerCharacters = chars
 -- 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 -- 		end
 -- 	end,
 -- })
--- vim.cmd [[set completeopt+=menuone,noselect,popup]]
---
+-- vim.cmd("set completeopt+=menuone,noselect,popup")
+
+
 -- require("actions-preview").setup {
 -- 	backend = { "telescope" },
 -- 	extensions = { "env" },
@@ -92,13 +105,7 @@ vim.pack.add({
 -- 	)
 -- }
 --
--- vim.lsp.enable({
--- 	"lua_ls", "cssls", "svelte", "tinymist",
--- 	"rust_analyzer", "clangd", "ruff",
--- 	"glsl_analyzer", "haskell-language-server", "hlint",
--- 	"intelephense", "biome", "tailwindcss",
--- 	"ts_ls", "emmet_language_server"
--- })
+
 --
 -- require("oil").setup({
 -- 	lsp_file_methods = {
@@ -122,6 +129,34 @@ vim.pack.add({
 -- require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
 --
 --
+-- autocomplete with blink.cmp
+--
+local capabilities = {
+  textDocument = {
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true
+    }
+  }
+}
+
+capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+
+-- or equivalently
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
+
+capabilities = vim.tbl_deep_extend('force', capabilities, {
+  textDocument = {
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true
+    }
+  }
+})
+
 -- ~/.config/nvim/init.lua
 
 local function pack_clean()
@@ -150,62 +185,6 @@ local function pack_clean()
 end
 
 vim.keymap.set("n", "<leader>h", pack_clean)
---
---
--- local color_group = vim.api.nvim_create_augroup("colors", { clear = true })
---
--- vim.api.nvim_create_autocmd("ColorScheme", {
--- 	group = color_group,
--- 	callback = function(args)
--- 		print("run")
--- 		if vim.t.color then
--- 			vim.cmd("colorscheme " .. vim.t.color)
--- 		else
--- 			vim.cmd("colorscheme " .. default_color)
--- 		end
--- 	end,
--- })
---
--- vim.api.nvim_create_autocmd("TabEnter", {
--- 	group = color_group,
--- 	callback = function(args)
--- 		print("run")
--- 		if vim.t.color then
--- 			vim.cmd("colorscheme " .. vim.t.color)
--- 		else
--- 			vim.cmd("colorscheme " .. default_color)
--- 		end
--- 	end,
--- })
---
--- local colors = {}
--- vim.api.nvim_create_autocmd("ColorScheme", {
--- 	group = color_group,
--- 	callback = function(args)
--- 		--vim.cmd("hi statusline guibg=NONE")
--- 		vim.cmd("hi TabLineFill guibg=NONE")
--- 	end,
--- })
---
--- local ls = require("luasnip")
--- local builtin = require("telescope.builtin")
---
--- function random_theme()
--- 	local colors = vim.fn.getcompletion("", "color")
--- 	-- print(#colors)
--- 	-- for i, v in ipairs(colors) do
--- 	-- 	print(v)
--- 	-- end
--- 	if current < #colors then
--- 		current = current + 1
--- 	else
--- 		current = 1
--- 	end
--- 	local color = colors[current]
--- 	-- print(current .. " " .. color)
--- 	vim.t.color = color
--- 	vim.cmd("colorscheme " .. color)
--- end
 
 -- map({ "i", "s" }, "<C-e>", function() ls.expand_or_jump(1) end, { silent = true })
 -- map({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
@@ -213,7 +192,44 @@ vim.keymap.set("n", "<leader>h", pack_clean)
 
 -- Required
 require('neo-tree').setup({})
-require("bufferline").setup{}
+require('bufferline').setup{}
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+		"lua_ls", "cssls", "svelte", "tinymist",
+		"rust_analyzer", "clangd", "ruff",
+		"glsl_analyzer", "hls",
+		-- "hlint",
+		"intelephense", "biome", "tailwindcss",
+		"ts_ls", "emmet_language_server", "ast_grep",
+		"astro"
+	},
+	automatic_installation = true,
+})
+
+require('blink.cmp').setup({
+  fuzzy = {
+    implementation = "lua"
+  }
+})
+-- Config and enable lsp
+
+-- vim.lsp.config('tsserver',{})
+-- vim.lsp.config('cssls',{})
+
+-- lsp enable config
+vim.lsp.enable({
+ 	"lua_ls", "cssls", "svelte", "tinymist",
+	"rust_analyzer", "clangd", "ruff",
+	"glsl_analyzer", "hls",
+	-- "hlint",
+	"intelephense", "biome", "tailwindcss",
+	"ts_ls", "emmet_language_server", "ast_grep",
+	"astro"
+})
+
+-- keybinds
 
 local map = vim.keymap.set
 local current = 1

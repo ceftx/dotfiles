@@ -18,6 +18,8 @@ from settings.keys import mod, keys
 from settings.groups import groups
 from settings.mouse import mouse
 from settings.layouts import layouts
+from settings.widgets import primary_widgets
+
 qtile_path = path.join(path.expanduser('~'),".config" ,"qtile")
 
 @hook.subscribe.startup_once
@@ -32,9 +34,13 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 logo = os.path.join(os.path.dirname(libqtile.resources.__file__), "logo.png")
+
+def status_bar(widgets):
+    return bar.Bar(widgets,24,opacity=0.92)
+
 screens = [
-    Screen(), # this config use polybar, see ~/.config/polybar/config.init
-]
+    Screen(top=status_bar(primary_widgets)), 
+    ]
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
