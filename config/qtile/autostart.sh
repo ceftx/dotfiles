@@ -15,16 +15,16 @@ dockerd &
 # Wayland config
 
 # wallpaper swww
-swww-daemon &
-swww img ~/dotfiles/wallpapers/gruvbox/1-grubox.jpg &
+#swww-daemon &
+$swww img ~/dotfiles/wallpapers/gruvbox/1-grubox.jpg &
 
 # Xorg config
 
 # wallpaper with feh
-# ~/.fehbg &
+ ~/.fehbg &
 
 # picom 
-# picom &
+ picom &
 
 # bar
 # polybar &
