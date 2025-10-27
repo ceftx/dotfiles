@@ -24,7 +24,7 @@ dockerd &
 # wallpaper with feh
 ~/.fehbg &
 
-# picom 
+# picom
 picom &
 
 # bar
