@@ -3,17 +3,31 @@
 # polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-# bar
-polybar &
-
 # captura de pantalla
 flameshot &
 
 # keyboard layout
-setxkbmap -layout us -variant intl &
+# setxkbmap -layout us -variant intl &
+setxkbmap -layout latam &
+
+# docker
+dockerd &
+
+# Wayland config
+
+# wallpaper swww
+# swww-daemon &
+# swww img ~/dotfiles/wallpapers/gruvbox/1-grubox.jpg &
+
+# Xorg config
+
+# wallpaper with feh
+~/.fehbg &
 
 # picom 
 picom &
 
-# wallpaper with feh
-~/.fehbg &
+# bar
+# polybar &
+
+

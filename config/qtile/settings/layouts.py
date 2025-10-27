@@ -1,6 +1,5 @@
 from libqtile import layout
 from libqtile.config import Match
-# from .theme import colors
 
 # Layouts and layout rules
 
