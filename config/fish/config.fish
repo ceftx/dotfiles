@@ -31,6 +31,10 @@ set -gx LC_ALL en_US.UTF-8
 
 # Configuración de Android SDK
 set -gx ANDROID_HOME $HOME/Android/Sdk
+
+set -gx ANDROID_SKD_ROOT $HOME/Android/Sdk
+export ANDROID_SDK_ROOT="~/Android/Sdk"
+
 set -gx PATH $ANDROID_HOME/cmdline-tools/latest/bin $PATH
 set -gx PATH $ANDROID_HOME/platform-tools $PATH
 set -gx PATH $ANDROID_HOME/platforms $PATH
@@ -41,6 +45,7 @@ set -gx PATH $ANDROID_HOME/tools/bin $PATH
 set -gx PATH "/home/ceftx/.config/herd-lite/bin" $PATH
 set -gx PHP_INI_SCAN_DIR "/home/ceftx/.config/herd-lite/bin" $PHP_INI_SCAN_DIR
 
+set -gx CHROME_EXECUTABLE /usr/bin/google-chrome-stable $CHROME_EXECUTABLE
 function use-java17
     set -l silent false
 
@@ -106,6 +111,8 @@ alias nv="nvim"
 alias ls="eza -h -l -a --icons"
 alias pnpx="pnpm dlx"
 
+alias anti="~/Downloads/Antigravity/antigravity &"
+
 function load_cargo_if_available
     if test (id -u) -ne 0; and test -f "$HOME/.cargo/env.fish"
         source "$HOME/.cargo/env.fish"
@@ -122,13 +129,15 @@ if status is-interactive
     if test (id -u) -ne 0
         # nvm solo si está instalado
         nvm use latest --silent
-        
+
         use-java21 --silent
+
         load_cargo_if_available
     end
 
 end
 
+set -g fish_user_paths /home/ceft/Work/sdks/flutter/bin
 # pnpm
 
 set -gx PNPM_HOME "/home/ceftx/.local/share/pnpm"
