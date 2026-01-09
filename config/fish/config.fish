@@ -128,7 +128,6 @@ if status is-interactive
 
     if test (id -u) -ne 0
         # nvm solo si está instalado
-        nvm use latest --silent
 
         use-java21 --silent
 
