@@ -50,6 +50,7 @@ if [ -n "$USER_NAME" ] && [ "$INSTALL_FOR_ROOT" = "false" ]; then
   ln -sf /home/$USER_NAME/dotfiles/config/starship.toml ~/.config/starship.toml
   ln -sf /home/$USER_NAME/dotfiles/config/nvim ~/.config/nvim
   ln -sf /home/$USER_NAME/dotfiles/config/ranger ~/.config/ranger
+  ln -sf /home/$USER_NAME/dotfiles/config/waybar ~/.config/waybar
   ln -sf /home/$USER_NAME/dotfiles/config/hypr ~/.config/hypr
   ln -sf /home/$USER_NAME/dotfiles/config/tmux ~/.config/tmux
 fi

@@ -2,6 +2,9 @@
 # fix crash open tauri app 
 set -gx WEBKIT_DISABLE_DMABUF_RENDERER 1
 
+# Qt compatibility
+set -gx QT_QPA_PLATFORM wayland
+
 # Configuración básica de Fish - ADAPTATIVA
 if test (id -u) -eq 0
     # Si somos root
@@ -147,3 +150,6 @@ end
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# opencode
+fish_add_path /home/ceftx/.opencode/bin
