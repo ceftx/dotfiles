@@ -36,7 +36,10 @@ set -gx LC_ALL en_US.UTF-8
 set -gx ANDROID_HOME $HOME/Android/Sdk
 
 set -gx ANDROID_SKD_ROOT $HOME/Android/Sdk
-export ANDROID_SDK_ROOT="~/Android/Sdk"
+export ANDROID_SDK_ROOT="/home/ceftx/Android/Sdk/"
+
+set -gx ANDROID_NDK_HOME /opt/android-ndk/
+export ANDROID_NDK_HOME="/opt/android-ndk/"
 
 set -gx PATH $ANDROID_HOME/cmdline-tools/latest/bin $PATH
 set -gx PATH $ANDROID_HOME/platform-tools $PATH

@@ -3,27 +3,32 @@
   "plugin": ["opencode-anthropic-auth"],
   // "theme": "gentleman",
   "autoupdate": true,
-  // "provider": {
-  //   "ollama": {
-  //     "npm": "@ai-sdk/openai-compatible",
-  //     "name": "Ollama (local)",
-  //     "options": {
-  //       "baseURL": "http://127.0.0.1:11434/v1"
-  //     },
-  //     "models": {
-  //       "qwen3:8b": {
-  //         "name": "qwen3:8b (local)"
-  //       },
-  //       "deepseek-coder:1.3b": {
-  //         "name": "deepseek-coder:1.3b (local)"
-  //       }
-  //     }
-  //   }
-  // },
+   "provider": {
+     "ollama": {
+       "npm": "@ai-sdk/openai-compatible",
+       "name": "Ollama (local)",
+       "options": {
+         "baseURL": "http://127.0.0.1:11434/v1"
+       },
+       "models": {
+         "aikid123/Qwen3-coder:latest": {
+           "name": "Qwen3-coder:latest (local)"
+         }
+       }
+     }
+   },
   "mcp": {
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ],
       "enabled": true
     }
   },
