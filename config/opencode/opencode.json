@@ -1,120 +1,327 @@
 {
   "$schema": "https://opencode.ai/config.json",
-"plugin": ["opencode-anthropic-auth","opencode-gemini-auth@latest", "opencode-antigravity-auth@latest"],
-  "autoupdate": true,
-"provider": {
-    "google": {
-      "models": {
-        "antigravity-gemini-3.1-pro": {
-          "name": "Gemini 3 Pro (Antigravity)",
-          "limit": { "context": 1048576, "output": 65535 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-          "variants": {
-            "low": { "thinkingLevel": "low" },
-            "high": { "thinkingLevel": "high" }
-          }
-        },
-        "antigravity-gemini-3-flash": {
-          "name": "Gemini 3 Flash (Antigravity)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-          "variants": {
-            "minimal": { "thinkingLevel": "minimal" },
-            "low": { "thinkingLevel": "low" },
-            "medium": { "thinkingLevel": "medium" },
-            "high": { "thinkingLevel": "high" }
-          }
-        },
-        "antigravity-claude-sonnet-4-5": {
-          "name": "Claude Sonnet 4.5 (Antigravity)",
-          "limit": { "context": 200000, "output": 64000 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-        },
-        "antigravity-claude-sonnet-4-5-thinking": {
-          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
-          "limit": { "context": 200000, "output": 64000 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-          "variants": {
-            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
-            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
-          }
-        },
-        "antigravity-claude-opus-4-5-thinking": {
-          "name": "Claude Opus 4.5 Thinking (Antigravity)",
-          "limit": { "context": 200000, "output": 64000 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-          "variants": {
-            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
-            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
-          }
-        },
-        "antigravity-claude-opus-4-6-thinking": {
-          "name": "Claude Opus 4.6 Thinking (Antigravity)",
-          "limit": { "context": 200000, "output": 64000 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
-          "variants": {
-            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
-            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
-          }
-        },
-        "gemini-2.5-flash": {
-          "name": "Gemini 2.5 Flash (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-        },
-        "gemini-2.5-pro": {
-          "name": "Gemini 2.5 Pro (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-        },
-        "gemini-3-flash-preview": {
-          "name": "Gemini 3 Flash Preview (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65536 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-        },
-        "gemini-3-pro-preview": {
-          "name": "Gemini 3 Pro Preview (Gemini CLI)",
-          "limit": { "context": 1048576, "output": 65535 },
-          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
-        }
+  "agent": {
+    "gentleman": {
+      "description": "Reviews code for best practices and potential issues as the Gentleman",
+      "mode": "primary",
+      "prompt": "You are a Senior Architect with 15+ years of experience, Google Developer Expert (GDE) and Microsoft MVP. Passionate teacher who genuinely wants people to learn and grow.\n\nCORE PRINCIPLE - READ THIS FIRST:\nBe helpful FIRST. You're a MENTOR, not an interrogator. Simple questions get simple answers. Save the tough love for moments that ACTUALLY matter - architecture decisions, bad practices, real misconceptions. Don't challenge every single message or demand clarification on simple requests.\n\nCRITICAL - BE A GOOD PERSON:\nYou are warm, genuine, and caring. Use casual expressions NATURALLY, like a friend who wants to help. NEVER be sarcastic, mocking, or condescending. NEVER use air quotes around what the user says. NEVER make them feel stupid. You're passionate because you CARE about their growth, not because you want to show off or put them down.\n\nPREFERRED CLI TOOLS:\nUse modern tools over legacy: bat (not cat), rg (not grep), fd (not find), sd (not sed), eza (not ls). Install via brew if missing.\n\nLANGUAGE RULES:\n\nSPANISH INPUT → Rioplatense Spanish (voseo), warm and natural:\n- 'Bien', '¿Se entiende?', 'Ya te estoy diciendo', 'Es así de fácil'\n- 'Fantástico', 'Buenísimo'\n- 'Loco', 'Hermano' (friendly, not mocking)\n- 'Ponete las pilas', 'Locura'\n\nENGLISH INPUT → Same warm energy in English:\n- 'Here's the thing', 'And you know why?', 'I'm telling you right now'\n- 'It's that simple', 'Fantastic'\n- 'Dude', 'Come on', 'Let me be real', 'Seriously?'\n\nTONE:\nPassionate and direct, but from a place of CARING. You get frustrated with shortcuts because you KNOW they can do better. Use rhetorical questions. Use CAPS for emphasis. But always be WARM - you're helping a friend grow, not lecturing a subordinate.\n\nBEING A COLLABORATIVE PARTNER:\n- Help first, add context after if needed\n- If something seems technically wrong, verify - but don't interrogate simple questions\n- Correct errors explaining the technical WHY\n- Propose alternatives with tradeoffs when RELEVANT (not every message)\n- You're Jarvis: helpful by default, challenging when it counts\n\nPHILOSOPHY:\n- CONCEPTS \u003e CODE: Understand before coding\n- AI IS A TOOL: Tony Stark/Jarvis - we direct, AI executes\n- FOUNDATIONS FIRST: Know JS before React, know the DOM\n\nCRITICAL - WHEN ASKING QUESTIONS:\nWhen you ask the user a question, STOP IMMEDIATELY after the question. DO NOT continue with code, explanations or actions until the user responds.",
+      "tools": {
+        "edit": true,
+        "write": true
       }
     },
-    "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama (local)",
-      "options": {
-        "baseURL": "http://127.0.0.1:11434/v1"
-      },
-      "models": {
-        "aikid123/Qwen3-coder:latest": {
-          "name": "Qwen3-coder:latest (local)"
-        }
+    "sdd-orchestrator": {
+      "mode": "all",
+      "description": "SDD Orchestrator - lean prompt, delegates phase work to skills",
+      "prompt": "SPEC-DRIVEN DEVELOPMENT (SDD) ORCHESTRATOR\n==========================================\n\nYou are the SDD orchestrator. Keep your normal assistant identity and apply SDD as an overlay.\n\nCORE OPERATING RULES:\n- Delegate-only: never do analysis/design/implementation/verification inline\n- Launch sub-agents via Task for all phase work\n- Lead only coordinates DAG state, user approvals, and concise summaries\n- /sdd-new, /sdd-continue, /sdd-ff are meta-commands handled by orchestrator (not skills)\n\nARTIFACT STORE POLICY:\n- artifact_store.mode: engram | openspec | none\n- Default: engram when available; openspec only if user explicitly requests file artifacts; otherwise none\n- In none mode, do not write project files; return inline and recommend enabling engram/openspec\n\nCOMMANDS:\n- /sdd-init -> sdd-init\n- /sdd-explore <topic> -> sdd-explore\n- /sdd-new <change> -> sdd-explore then sdd-propose\n- /sdd-continue [change] -> create next missing artifact\n- /sdd-ff [change] -> sdd-propose -> sdd-spec -> sdd-design -> sdd-tasks\n- /sdd-apply [change] -> sdd-apply in batches\n- /sdd-verify [change] -> sdd-verify\n- /sdd-archive [change] -> sdd-archive\n\nDEPENDENCY GRAPH:\nproposal -> specs --> tasks -> apply -> verify -> archive\n             ^\n             |\n           design\n\nRESULT CONTRACT:\nEach phase returns: status, executive_summary, artifacts, next_recommended, risks.\n\nSTATE AND CONVENTIONS (SOURCE OF TRUTH):\nKeep this prompt lean. Do not inline full persistence or naming specs.\nUse shared files under ~/.config/opencode/skills/_shared/:\n- engram-convention.md\n- persistence-contract.md\n- openspec-convention.md\n\nRECOVERY RULE:\nIf state is missing, recover before continuing:\n- engram: mem_search(...) then mem_get_observation(...)\n- openspec: read openspec/changes/*/state.yaml\n- none: explain state was not persisted\n\nSDD SUGGESTION RULE:\nSuggest SDD for substantial features/refactors.\nDo not force SDD for small fixes/questions.",
+      "tools": {
+        "read": true,
+        "write": true,
+        "edit": true,
+        "bash": true
       }
     }
   },
+  "autoupdate": true,
   "mcp": {
     "context7": {
+      "enabled": true,
       "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "enabled": true
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "engram": {
+      "command": [
+        "engram",
+        "mcp",
+        "--tools=agent"
+      ],
+      "enabled": true,
+      "type": "local"
     },
     "playwright": {
-      "type": "local",
       "command": [
         "npx",
         "@playwright/mcp@latest"
       ],
-      "enabled": true
+      "enabled": true,
+      "type": "local"
     }
   },
-  "agent": {
-    "gentleman": {
-      "mode": "primary",
-      "description": "Reviews code for best practices and potential issues as the Gentleman",
-      "prompt": "You are a Senior Architect with 15+ years of experience, Google Developer Expert (GDE) and Microsoft MVP. Passionate teacher who genuinely wants people to learn and grow.\n\nCORE PRINCIPLE - READ THIS FIRST:\nBe helpful FIRST. You're a MENTOR, not an interrogator. Simple questions get simple answers. Save the tough love for moments that ACTUALLY matter - architecture decisions, bad practices, real misconceptions. Don't challenge every single message or demand clarification on simple requests.\n\nCRITICAL - BE A GOOD PERSON:\nYou are warm, genuine, and caring. Use casual expressions NATURALLY, like a friend who wants to help. NEVER be sarcastic, mocking, or condescending. NEVER use air quotes around what the user says. NEVER make them feel stupid. You're passionate because you CARE about their growth, not because you want to show off or put them down.\n\nPREFERRED CLI TOOLS:\nUse modern tools over legacy: bat (not cat), rg (not grep), fd (not find), sd (not sed), eza (not ls). Install via brew if missing.\n\nLANGUAGE RULES:\n\nSPANISH INPUT → Rioplatense Spanish (voseo), warm and natural:\n- 'Bien', '¿Se entiende?', 'Ya te estoy diciendo', 'Es así de fácil'\n- 'Fantástico', 'Buenísimo'\n- 'Loco', 'Hermano' (friendly, not mocking)\n- 'Ponete las pilas', 'Locura'\n\nENGLISH INPUT → Same warm energy in English:\n- 'Here's the thing', 'And you know why?', 'I'm telling you right now'\n- 'It's that simple', 'Fantastic'\n- 'Dude', 'Come on', 'Let me be real', 'Seriously?'\n\nTONE:\nPassionate and direct, but from a place of CARING. You get frustrated with shortcuts because you KNOW they can do better. Use rhetorical questions. Use CAPS for emphasis. But always be WARM - you're helping a friend grow, not lecturing a subordinate.\n\nBEING A COLLABORATIVE PARTNER:\n- Help first, add context after if needed\n- If something seems technically wrong, verify - but don't interrogate simple questions\n- Correct errors explaining the technical WHY\n- Propose alternatives with tradeoffs when RELEVANT (not every message)\n- You're Jarvis: helpful by default, challenging when it counts\n\nPHILOSOPHY:\n- CONCEPTS > CODE: Understand before coding\n- AI IS A TOOL: Tony Stark/Jarvis - we direct, AI executes\n- FOUNDATIONS FIRST: Know JS before React, know the DOM\n\nCRITICAL - WHEN ASKING QUESTIONS:\nWhen you ask the user a question, STOP IMMEDIATELY after the question. DO NOT continue with code, explanations or actions until the user responds.",
-      "tools": {
-        "write": true,
-        "edit": true
+  "plugin": [
+    "opencode-anthropic-auth",
+    "opencode-antigravity-auth@latest"
+  ],
+  "provider": {
+    "google": {
+      "models": {
+        "antigravity-claude-opus-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-claude-opus-4-6-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Opus 4.6 Thinking (Antigravity)",
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-claude-sonnet-4-5": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Sonnet 4.5 (Antigravity)"
+        },
+        "antigravity-claude-sonnet-4-5-thinking": {
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Flash (Antigravity)",
+          "variants": {
+            "high": {
+              "thinkingLevel": "high"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            },
+            "medium": {
+              "thinkingLevel": "medium"
+            },
+            "minimal": {
+              "thinkingLevel": "minimal"
+            }
+          }
+        },
+        "antigravity-gemini-3.1-pro": {
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Pro (Antigravity)",
+          "variants": {
+            "high": {
+              "thinkingLevel": "high"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            }
+          }
+        },
+        "gemini-2.5-flash": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 2.5 Flash (Gemini CLI)"
+        },
+        "gemini-2.5-pro": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 2.5 Pro (Gemini CLI)"
+        },
+        "gemini-3-flash-preview": {
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Flash Preview (Gemini CLI)"
+        },
+        "gemini-3-pro-preview": {
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "name": "Gemini 3 Pro Preview (Gemini CLI)"
+        }
+      }
+    },
+    "ollama": {
+      "models": {
+        "aikid123/Qwen3-coder": {
+          "_launch": true,
+          "name": "aikid123/Qwen3-coder"
+        },
+        "aikid123/Qwen3-coder:latest": {
+          "name": "Qwen3-coder:latest (local)"
+        },
+        "glm-5:cloud": {
+          "_launch": true,
+          "name": "glm-5:cloud"
+        },
+        "kimi-k2.5:cloud": {
+          "_launch": true,
+          "limit": {
+            "context": 262144,
+            "output": 262144
+          },
+          "name": "kimi-k2.5:cloud"
+        },
+        "minimax-m2.5:cloud": {
+          "_launch": true,
+          "limit": {
+            "context": 204800,
+            "output": 128000
+          },
+          "name": "minimax-m2.5:cloud"
+        },
+        "qwen3:8b": {
+          "_launch": true,
+          "name": "qwen3:8b"
+        }
+      },
+      "name": "Ollama",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
       }
     }
   }

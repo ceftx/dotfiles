@@ -154,5 +154,4 @@ end
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
-# opencode
-fish_add_path /home/ceftx/.opencode/bin
+set -gx PATH ~/go/bin $PATH
